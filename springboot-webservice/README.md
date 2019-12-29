@@ -1,0 +1,1 @@
+[https://github.com/fred4jupiter/camel-examples](https://github.com/fred4jupiter/camel-examples)
