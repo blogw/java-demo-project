@@ -5,6 +5,7 @@ import com.github.blogw.event4springboot.entity.MService;
 import com.github.blogw.event4springboot.event.EntityCreateEvent;
 import com.github.blogw.event4springboot.event.InvitationAcceptEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
@@ -15,6 +16,14 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 @Slf4j
 public class DemoListener {
+    @EventListener
+    void onContextRefreshed(final ContextRefreshedEvent event) {
+        log.info(
+                "Context refreshed, number of beans: {}",
+                event.getApplicationContext().getBeanDefinitionCount()
+        );
+    }
+
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     void onBeforeCommit(final EntityCreateEvent<MService> event) {
         log.info("onBeforeCommit {}", event);
